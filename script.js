@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initSkillAnimations();
     initScrollAnimations();
     initParticles();
-    initThemeToggle();
     initTypingAnimation();
 });
 
@@ -524,63 +523,6 @@ function initParticles() {
     setInterval(createParticle, 200);
 }
 
-// Theme Toggle Functionality
-function initThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const html = document.documentElement;
-    
-    // Check for saved theme or default to light mode
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-    
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-        
-        // Add ripple effect
-        createRippleEffect(themeToggle);
-    });
-    
-    function updateThemeIcon(theme) {
-        if (theme === 'dark') {
-            themeIcon.className = 'fas fa-sun';
-            themeToggle.setAttribute('aria-label', 'Toggle light mode');
-        } else {
-            themeIcon.className = 'fas fa-moon';
-            themeToggle.setAttribute('aria-label', 'Toggle dark mode');
-        }
-    }
-    
-    function createRippleEffect(button) {
-        const ripple = document.createElement('span');
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
-        
-        ripple.style.width = ripple.style.height = diameter + 'px';
-        ripple.style.left = '50%';
-        ripple.style.top = '50%';
-        ripple.style.transform = 'translate(-50%, -50%)';
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-        ripple.style.animation = 'ripple 0.6s ease-out';
-        ripple.style.pointerEvents = 'none';
-        
-        button.style.position = 'relative';
-        button.style.overflow = 'hidden';
-        button.appendChild(ripple);
-        
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
-    }
-}
 
 // Typing Animation
 function initTypingAnimation() {
@@ -669,32 +611,6 @@ function initProgressCounters() {
     counters.forEach(counter => observer.observe(counter));
 }
 
-// Add CSS for ripple effect
-const rippleCSS = `
-@keyframes ripple {
-    from {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 1;
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0;
-    }
-}
-
-/* Enhanced mobile theme toggle position */
-@media (max-width: 768px) {
-    .theme-toggle {
-        top: 20px;
-        right: 80px;
-        transform: none;
-    }
-}
-`;
-
-const styleSheet = document.createElement('style');
-styleSheet.textContent = rippleCSS;
-document.head.appendChild(styleSheet);
 
 // Initialize enhanced animations on load
 window.addEventListener('load', () => {
@@ -710,11 +626,11 @@ console.log(`
 📍 Location: Vigan City, Ilocos Sur, Philippines
 🎓 Licensed Psychometrician (RPm)
 
-✨ New Features Added:
-🌙 Dark/Light Theme Toggle
+✨ Features:
 ✨ Floating Particles Background
 ⌨️ Typing Animation
 🎨 Enhanced Visual Effects
+📱 Mobile Responsive Design
 
 Portfolio designed and developed with ❤️
 `);
