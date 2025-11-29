@@ -699,10 +699,10 @@ section {
     position: relative;
     border: 2px solid rgba(187, 148, 87, 0.1);
     border-left: 4px solid var(--primary-gold);
-    min-height: 380px;
+    min-height: 420px;
     display: flex;
     flex-direction: column;
-    height: auto;
+    height: 420px;
 }
 
 .timeline-content:hover {
