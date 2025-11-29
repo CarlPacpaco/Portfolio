@@ -1,0 +1,25 @@
+{
+    "name": "Carl Vincent V. Pacpaco - Portfolio",
+    "short_name": "CVP Portfolio",
+    "description": "Professional portfolio of Carl Vincent V. Pacpaco, Licensed Psychometrician",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#6f1d1b",
+    "theme_color": "#6f1d1b",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%236f1d1b'/%3E%3Ctext x='50' y='65' font-family='Arial,sans-serif' font-size='40' font-weight='bold' text-anchor='middle' fill='%23bb9457'%3ECVP%3C/text%3E%3C/svg%3E",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%236f1d1b'/%3E%3Ctext x='50' y='65' font-family='Arial,sans-serif' font-size='40' font-weight='bold' text-anchor='middle' fill='%23bb9457'%3ECVP%3C/text%3E%3C/svg%3E",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "lang": "en",
+    "dir": "ltr",
+    "categories": ["business", "education", "portfolio"]
+}
