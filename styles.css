@@ -620,7 +620,7 @@ section {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(187, 148, 87, 0.1);
+    border: 2px solid rgba(187, 148, 87, 0.1);
     min-height: 140px;
     display: flex;
     flex-direction: column;
@@ -697,8 +697,7 @@ section {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    border-left: 4px solid var(--primary-gold);
-    border: 1px solid rgba(187, 148, 87, 0.1);
+    border: 2px solid rgba(187, 148, 87, 0.1);
     border-left: 4px solid var(--primary-gold);
     min-height: 320px;
     display: flex;
@@ -786,7 +785,7 @@ section {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(187, 148, 87, 0.1);
+    border: 2px solid rgba(187, 148, 87, 0.1);
     min-height: 320px;
     display: flex;
     flex-direction: column;
@@ -905,7 +904,7 @@ section {
     padding: 2.5rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(187, 148, 87, 0.1);
+    border: 2px solid rgba(187, 148, 87, 0.1);
     position: relative;
     overflow: hidden;
     min-height: 280px;
