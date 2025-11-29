@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initSkillAnimations();
     initScrollAnimations();
+    initParticles();
+    initThemeToggle();
+    initTypingAnimation();
 });
 
 // Enhanced Mobile Menu Functionality
@@ -475,6 +478,230 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Particle System
+function initParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 50;
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random horizontal position
+        particle.style.left = Math.random() * 100 + '%';
+        
+        // Random animation duration (4-8 seconds)
+        const duration = Math.random() * 4 + 4;
+        particle.style.animationDuration = duration + 's';
+        
+        // Random delay
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        
+        // Random size variation
+        const size = Math.random() * 3 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        particlesContainer.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, (duration + 2) * 1000);
+    }
+    
+    // Create initial particles
+    for (let i = 0; i < particleCount; i++) {
+        setTimeout(createParticle, i * 100);
+    }
+    
+    // Continuously create particles
+    setInterval(createParticle, 200);
+}
+
+// Theme Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    
+    // Check for saved theme or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        
+        // Add ripple effect
+        createRippleEffect(themeToggle);
+    });
+    
+    function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+            themeIcon.className = 'fas fa-sun';
+            themeToggle.setAttribute('aria-label', 'Toggle light mode');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+        }
+    }
+    
+    function createRippleEffect(button) {
+        const ripple = document.createElement('span');
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+        
+        ripple.style.width = ripple.style.height = diameter + 'px';
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.transform = 'translate(-50%, -50%)';
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+        ripple.style.animation = 'ripple 0.6s ease-out';
+        ripple.style.pointerEvents = 'none';
+        
+        button.style.position = 'relative';
+        button.style.overflow = 'hidden';
+        button.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
+}
+
+// Typing Animation
+function initTypingAnimation() {
+    const typingElement = document.querySelector('.typing-text');
+    if (!typingElement) return;
+    
+    const text = typingElement.getAttribute('data-text');
+    const speed = 100; // Typing speed in milliseconds
+    let i = 0;
+    
+    typingElement.textContent = '';
+    typingElement.classList.add('typing');
+    
+    function typeWriter() {
+        if (i < text.length) {
+            typingElement.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            // Remove typing class to stop blinking cursor
+            setTimeout(() => {
+                typingElement.classList.remove('typing');
+            }, 1000);
+        }
+    }
+    
+    // Start typing after a delay
+    setTimeout(typeWriter, 1000);
+}
+
+// Enhanced Scroll Reveal Animations
+function initEnhancedAnimations() {
+    const elements = document.querySelectorAll('.stat-card, .skill-category, .education-card, .timeline-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(element);
+    });
+}
+
+// Progress Counter Animation
+function initProgressCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseFloat(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = current.toFixed(current % 1 === 0 ? 0 : 2);
+                    
+                    // Add '+' for certain numbers
+                    if (counter.textContent.includes('500') || counter.textContent.includes('100')) {
+                        counter.textContent += '+';
+                    }
+                }, 20);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => observer.observe(counter));
+}
+
+// Add CSS for ripple effect
+const rippleCSS = `
+@keyframes ripple {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Enhanced mobile theme toggle position */
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 20px;
+        right: 80px;
+        transform: none;
+    }
+}
+`;
+
+const styleSheet = document.createElement('style');
+styleSheet.textContent = rippleCSS;
+document.head.appendChild(styleSheet);
+
+// Initialize enhanced animations on load
+window.addEventListener('load', () => {
+    initEnhancedAnimations();
+    initProgressCounters();
+});
+
 // Console welcome message
 console.log(`
 🎉 Welcome to Carl Vincent V. Pacpaco's Portfolio!
@@ -482,6 +709,12 @@ console.log(`
 📱 Phone: +63 999 490 0847
 📍 Location: Vigan City, Ilocos Sur, Philippines
 🎓 Licensed Psychometrician (RPm)
+
+✨ New Features Added:
+🌙 Dark/Light Theme Toggle
+✨ Floating Particles Background
+⌨️ Typing Animation
+🎨 Enhanced Visual Effects
 
 Portfolio designed and developed with ❤️
 `);
